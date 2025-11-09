@@ -1,0 +1,76 @@
+Feature: Explore the functionality of the herokuapp website # features/herokuapp.feature:1
+  As a web developer/designer
+  I want to explore the functionality
+  Of the herokuapp website
+  Scenario: Homepage loads successfully                                         # features/herokuapp.feature:6
+    Given I open the url "https://the-internet.herokuapp.com"                   # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that element "h1" contains the text "Welcome to the-internet" # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:121
+    Then I expect that element "h2" contains the text "Available Examples"      # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:121
+    Then I expect that element "ul" contains any text                           # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:131
+    Then I expect that element "#page-footer" is visible                        # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:14
+
+  Scenario: Notification message link works and a notification message exists.  # features/herokuapp.feature:13
+    Given I open the url "https://the-internet.herokuapp.com"                   # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    When I click on the element "a[href='/notification_message']"               # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:21
+    Then I expect that element "#flash" is visible                              # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:14
+    Then I expect that element "h3" contains the text "Notification Message"    # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:121
+
+  Scenario: The dropdown link takes you to the dropdown page and dropdown is present  # features/herokuapp.feature:19
+    Given I open the url "https://the-internet.herokuapp.com"                         # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    When I click on the element "a[href='/dropdown']"                                 # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:21
+    When I pause for 500ms                                                            # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:16
+    Then I expect the url to contain "/dropdown"                                      # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:162
+    Then I expect that element "#dropdown" is visible                                 # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:14
+
+  Scenario: Key Presses link works and tab selects the textbox  # features/herokuapp.feature:26
+    Given I open the url "https://the-internet.herokuapp.com"   # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    When I click on the element "a[href='/key_presses']"        # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:21
+    When I pause for 500ms                                      # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:16
+    When I press "Tab"                                          # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:80
+    Then I expect that element "#result" becomes visible        # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:14
+
+  Scenario: File uploader link works and file uploader button takes you to server error page  # features/herokuapp.feature:33
+    Given I open the url "https://the-internet.herokuapp.com"                                 # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    When I click on the element "a[href='/upload']"                                           # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:21
+    When I click on the button "input.button"                                                 # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:36
+    When I pause for 500ms                                                                    # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:16
+    Then I expect that element "h1" contains the text "Internal Server Error"                 # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:121
+
+  Scenario: Add/Remove Elements link works and the page has an "Add Element" button and a "Delete" button  # features/herokuapp.feature:40
+    Given I open the url "https://the-internet.herokuapp.com/"                                             # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    When I click on the element "a[href='/add_remove_elements/']"                                          # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:21
+    Then I expect that element "button[onclick='addElement()']" is visible                                 # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:14
+    When I click on the button "button[onclick='addElement()']"                                            # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:36
+    Then I expect that element "button.added-manually" becomes visible                                     # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:14
+
+  Scenario: Mulitple windows link works and the button opens a new tab                            # features/herokuapp.feature:47
+    Given I open the url "https://the-internet.herokuapp.com"                                     # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    When I click on the element "a[href='/windows']"                                              # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:21
+    Then I expect that element "a[href='/windows/new']" is visible                                # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:14
+    When I click on the element "a[href='/windows/new']"                                          # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:21
+    Then I expect the url "https://the-internet.herokuapp.com/windows/new" is opened in a new tab # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:279
+    Given I open the url "https://the-internet.herokuapp.com/windows/new"                         # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that element "h3" contains the text "New Window"                                # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:121
+
+  Scenario: Checkbox checks and unchecks when clicked on                 # features/herokuapp.feature:56
+    Given I open the url "https://the-internet.herokuapp.com/checkboxes" # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    When I click on the element "input[type='checkbox']"                 # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:21
+    Then I expect that checkbox "input[type='checkbox']" is checked      # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:63
+    When I click on the element "input[type='checkbox']"                 # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:21
+    Then I expect that checkbox "input[type='checkbox']" is not checked  # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:63
+
+  Scenario: Image page link works and has 3 broken broken images            # features/herokuapp.feature:64
+    Given I open the url "https://the-internet.herokuapp.com/"              # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    When I click on the element "a[href='/broken_images']"                  # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions.py:21
+    Then I expect that element "img[src='asdf.jpg']" is visible             # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:14
+    Then I expect that element "img[src='hjkl.jpg']" is visible             # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:14
+    Then I expect that element "img[src='img/avatar-blank.jpg']" is visible # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:14
+
+  Scenario: Drag and Drop page has a draggable element                      # features/herokuapp.feature:71
+    Given I open the url "https://the-internet.herokuapp.com/drag_and_drop" # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/actions_re.py:60
+    Then I expect that element "div[draggable='true']" is visible           # ../../../../../../../opt/homebrew/lib/python3.13/site-packages/behave_webdriver/steps/expectations.py:14
+
+1 feature passed, 0 failed, 0 skipped
+10 scenarios passed, 0 failed, 0 skipped
+48 steps passed, 0 failed, 0 skipped, 0 undefined
+Took 0m5.771s
