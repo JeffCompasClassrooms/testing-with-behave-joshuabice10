@@ -256,7 +256,6 @@ def step_delete_item_works(context):
 def step_item_is_gone(context):
     driver = context.behave_driver
     wait = WebDriverWait(driver, 10)
-    
     time.sleep(1.5)
     
     phone_title = driver.find_elements(By.XPATH, "//tbody[@id='tbodyid']//td[text()='Samsung galaxy s6']")
