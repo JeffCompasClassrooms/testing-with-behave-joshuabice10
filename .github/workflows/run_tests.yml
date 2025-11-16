@@ -29,9 +29,11 @@ jobs:
         uses: nanasess/setup-chromedriver@v2
 
       - name: Run Behave Test Suite 1
+        working-directory: test_suite_1
         run: |
-          behave test_suite_1 --no-capture
+          behave
 
       - name: Run Behave Test Suite 2
+        working-directory: test_suite_2
         run: |
-          behave test_suite_2 --no-capture
+          behave
