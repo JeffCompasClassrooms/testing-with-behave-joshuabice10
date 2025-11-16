@@ -1,4 +1,4 @@
 behave==1.2.6
 selenium==3.141.0
+urllib3==1.26.15
 behave-webdriver
-webdriver-manager
