@@ -36,6 +36,9 @@ Feature: Explore the functionality of the herokuapp website
 
   Scenario: I can delete a product from the cart
     Given I am on the Demoblaze homepage
+    When I click on the Samsung galaxy s6
+    When I click on add samsung to cart
+    Then I should see a product added alert
     When I click on the cart page
     Then I should see the phone in my cart
     When I click the delete button in my cart
