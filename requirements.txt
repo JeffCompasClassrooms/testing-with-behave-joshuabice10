@@ -1,4 +1,4 @@
 behave==1.2.6
-selenium
+selenium==1.141.0
 behave-webdriver
 webdriver-manager
