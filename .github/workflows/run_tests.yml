@@ -24,6 +24,14 @@ jobs:
         with:
           chrome-version: stable
 
+      - name: Check environment.py files
+        run: |
+          echo "=== Test Suite 1 ==="
+          cat test_suite_1/features/environment.py
+          echo ""
+          echo "=== Test Suite 2 ==="
+          cat test_suite_2/features/environment.py
+
       - name: Run Behave Test Suite 1
         working-directory: test_suite_1
         run: behave
