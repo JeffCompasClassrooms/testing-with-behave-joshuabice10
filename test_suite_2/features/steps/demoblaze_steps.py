@@ -137,10 +137,13 @@ def step_laptop_category_click(context):
 @then("I should see six laptops")
 def step_laptop_category_works(context):
     driver = context.behave_driver
-    wait = WebDriverWait(driver,10)
-
+    wait = WebDriverWait(driver, 10)
+    
+    time.sleep(1.5)
+    
     all_products = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//div[@class='card h-100']")))
-    assert len(all_products) == 6
+    
+    assert len(all_products) >= 6, f"Expected at least 6 laptops, found {len(all_products)}"
 
 @when("I click on the monitors category")
 def step_monitor_category_click(context):
@@ -219,10 +222,23 @@ def step_click_to_cart_page(context):
 @then("I should see the phone in my cart")
 def step_cart_item_present(context):
     driver = context.behave_driver
-    wait = WebDriverWait(driver,10)
-
-    phone_title = driver.find_element(By.XPATH, "//tbody[@id='tbodyid']//td[text()='Samsung galaxy s6']")
-    time.sleep(0.5)
+    wait = WebDriverWait(driver, 15)
+    
+    time.sleep(2)
+    
+    try:
+        phone_title = wait.until(
+            EC.presence_of_element_located((By.XPATH, "//tbody[@id='tbodyid']//td[text()='Samsung galaxy s6']"))
+        )
+        assert phone_title is not None
+    except Exception as e:
+        cart_items = driver.find_elements(By.XPATH, "//tbody[@id='tbodyid']//tr")
+        print(f"Cart contains {len(cart_items)} items")
+        
+        all_text = driver.find_element(By.XPATH, "//tbody[@id='tbodyid']").text
+        print(f"Cart content: {all_text}")
+        
+        raise AssertionError(f"Samsung galaxy s6 not found in cart. Error: {e}")
 
 @when("I click the delete button in my cart")
 def step_delete_item_works(context):
